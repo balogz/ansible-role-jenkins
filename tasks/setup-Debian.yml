@@ -5,7 +5,7 @@
       - curl
       - apt-transport-https
       - gnupg
-    state: present
+    state: absent
 
 - name: Add Jenkins apt repository key.
   ansible.builtin.get_url:
@@ -17,7 +17,7 @@
 - name: Add Jenkins apt repository.
   apt_repository:
     repo: "{{ jenkins_repo_url }}"
-    state: present
+    state: absent
     update_cache: true
   when: jenkins_repo_url | default(false)
   tags: ['skip_ansible_lint']
@@ -37,7 +37,7 @@
 - name: Install our specific version of Jenkins.
   apt:
     deb: "/tmp/jenkins_{{ jenkins_version }}_all.deb"
-    state: present
+    state: absent
   when: jenkins_version is defined and specific_version.stat.exists
   notify: configure default users
 
