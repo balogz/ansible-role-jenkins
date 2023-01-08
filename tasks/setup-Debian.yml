@@ -5,7 +5,7 @@
       - curl
       - apt-transport-https
       - gnupg
-    state: absent
+    state: present
 
 - name: Add Jenkins apt repository key.
   ansible.builtin.get_url:
@@ -17,7 +17,7 @@
 - name: Add Jenkins apt repository.
   apt_repository:
     repo: "{{ jenkins_repo_url }}"
-    state: absent
+    state: present
     update_cache: true
   when: jenkins_repo_url | default(false)
   tags: ['skip_ansible_lint']
